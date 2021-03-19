@@ -3,14 +3,14 @@ name = "trans-arxiv-bot"
 version = "0.1.0"
 authors = ["moisutsu <moisutsu@gmail.com>"]
 edition = "2018"
-description = ""
-repository = ""
+description = "A Twitter bot that tweets translated arXiv paper summaries"
+repository = "https://github.com/moisutsu/trans-arxiv-bot"
 license = "MIT"
 readme = "README.md"
 # see https://crates.io/category_slugs
-categories = [""]
+categories = ["command-line-utilities"]
 # see https://crates.io/keywords
-keywords = [""]
+keywords = ["cli", "twitter", "bot"]
 
 [dependencies]
 kuon = "0.0.22"

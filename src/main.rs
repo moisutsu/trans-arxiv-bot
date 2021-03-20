@@ -1,12 +1,10 @@
 use anyhow::Result;
 use chrono::{Duration, Utc};
 use clap::Clap;
-use dotenv::dotenv;
 use trans_arxiv_bot::{fetch_arxiv_info, translate, Opts, TwitterClient};
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    dotenv()?;
     let opts: Opts = Opts::parse();
     let (date_from, date_to) = get_date_range(&opts);
     let twitter_client = TwitterClient::new().await?;

@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to trans-arxiv-bot 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/moisutsu/trans-arxiv-bot/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
@@ -34,6 +34,16 @@ Several options can be specified in the command line arguments, as follows.
 - How many days or hours of the most recent paper to fetch. days (`--range-days`), hours (`--range-hours`)
 
 You can also check this from `trans-arxiv-bot --help`.
+
+You will also need to set some values in the environment variables.
+
+- Twitter
+  - API_KEY
+  - API_SECRET_KEY
+  - ACCESS_TOKEN
+  - ACCESS_TOKEN_SECRET
+- translate
+  - TRANSLATE_URL (see: [Google 翻訳 API を無料で作る方法 - Qiita](https://qiita.com/satto_sann/items/be4177360a0bc3691fdf) and [google_translate_api](https://gist.github.com/moisutsu/6d5b1721d4c4e4aa7e6184f2a6f557d5))
 
 ## Author
 

@@ -35,6 +35,16 @@ Several options can be specified in the command line arguments, as follows.
 
 You can also check this from `trans-arxiv-bot --help`.
 
+You will also need to set some values in the environment variables.
+
+- Twitter
+  - API_KEY
+  - API_SECRET_KEY
+  - ACCESS_TOKEN
+  - ACCESS_TOKEN_SECRET
+- translate
+  - TRANSLATE_URL (see: [Google 翻訳 API を無料で作る方法 - Qiita](https://qiita.com/satto_sann/items/be4177360a0bc3691fdf) and [google_translate_api](https://gist.github.com/moisutsu/6d5b1721d4c4e4aa7e6184f2a6f557d5))
+
 ## Author
 
 👤 **moisutsu**

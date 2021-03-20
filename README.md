@@ -21,7 +21,7 @@ cargo install trans-arxiv-bot
 
 ## Usage
 
-By default, it fetches the papers published in the last hour from arXiv, translates them from English to Japanese, and tweets them. The default category is `cat:cs.CL`.
+By default, it fetches the papers published in the last hour from arXiv, translates them from English to Japanese, and tweets them. The default category is `cs.CL`.
 
 ```sh
 trans-arxiv-bot

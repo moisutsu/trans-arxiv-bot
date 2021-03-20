@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
 use anyhow::Result;
-use dotenv::dotenv;
 use kuon::TwitterAPI;
 
 pub struct TwitterClient {
@@ -10,7 +9,6 @@ pub struct TwitterClient {
 
 impl TwitterClient {
     pub async fn new() -> Result<Self> {
-        dotenv()?;
         let api = TwitterAPI::new_using_env().await?;
         Ok(TwitterClient { api })
     }

@@ -17,7 +17,7 @@ pub async fn fetch_arxiv_info(
     let mut arxivs = vec![];
     let query = query!(
         search_query = &format!(
-            "{} AND submittedDate:[{} TO {}]",
+            "cat:{} AND submittedDate:[{} TO {}]",
             category, date_from, date_to
         ),
         sort_by = "submittedDate",

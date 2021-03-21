@@ -1,14 +1,14 @@
 use anyhow::Result;
 use chrono::{DateTime, Duration, Utc};
 use clap::Clap;
-use trans_arxiv_bot::{fetch_arxiv_info, translate, Opts, TwitterClient};
+use trans_arxiv_bot::{arxiv_lib, translate, Opts, TwitterClient};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let opts: Opts = Opts::parse();
     let (date_from, date_to) = get_date_range(&opts);
     let twitter_client = TwitterClient::new().await?;
-    for arxiv in fetch_arxiv_info(&opts.category, &date_from, &date_to).await? {
+    for arxiv in arxiv_lib::fetch_info(&opts.category, &date_from, &date_to).await? {
         let translated_summary =
             translate(&arxiv.summary, &opts.source_lang, &opts.target_lang).await?;
         let tweet_contents = format!("{} {}\n{}", arxiv.title, arxiv.url, translated_summary);

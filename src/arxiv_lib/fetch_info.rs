@@ -10,7 +10,7 @@ pub struct ArxivInfo {
 }
 
 // date format: YYYYMMDDHHmm
-pub async fn fetch_arxiv_info(
+pub async fn fetch_info(
     category: &str,
     date_from: &DateTime<Utc>,
     date_to: &DateTime<Utc>,

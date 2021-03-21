@@ -1,5 +1,6 @@
 use anyhow::Result;
 use arxiv::{fetch_arxivs, query};
+use chrono::{DateTime, Utc};
 
 #[derive(Debug)]
 pub struct ArxivInfo {
@@ -11,14 +12,17 @@ pub struct ArxivInfo {
 // date format: YYYYMMDDHHmm
 pub async fn fetch_arxiv_info(
     category: &str,
-    date_from: &str,
-    date_to: &str,
+    date_from: &DateTime<Utc>,
+    date_to: &DateTime<Utc>,
 ) -> Result<Vec<ArxivInfo>> {
     let mut arxivs = vec![];
+    let date_time_format = "%Y%m%d%H%M%S";
     let query = query!(
         search_query = &format!(
             "cat:{} AND submittedDate:[{} TO {}]",
-            category, date_from, date_to
+            category,
+            date_from.format(date_time_format),
+            date_to.format(date_time_format)
         ),
         sort_by = "submittedDate",
         sort_order = "ascending"

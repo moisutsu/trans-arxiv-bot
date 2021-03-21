@@ -1,5 +1,5 @@
 use anyhow::Result;
-use chrono::{Duration, Utc};
+use chrono::{DateTime, Duration, Utc};
 use clap::Clap;
 use trans_arxiv_bot::{fetch_arxiv_info, translate, Opts, TwitterClient};
 
@@ -17,13 +17,8 @@ async fn main() -> Result<()> {
     Ok(())
 }
 
-fn get_date_range(opts: &Opts) -> (String, String) {
+fn get_date_range(opts: &Opts) -> (DateTime<Utc>, DateTime<Utc>) {
     let date_to = Utc::now();
     let date_from = date_to - Duration::days(opts.range_days) - Duration::hours(opts.range_hours);
-    let date_format = "%Y%m%d%H%M%S";
-
-    (
-        date_from.format(date_format).to_string(),
-        date_to.format(date_format).to_string(),
-    )
+    (date_from, date_to)
 }

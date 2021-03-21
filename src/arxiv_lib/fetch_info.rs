@@ -7,6 +7,7 @@ pub struct ArxivInfo {
     pub title: String,
     pub url: String,
     pub summary: String,
+    pub published: DateTime<Utc>,
 }
 
 // date format: YYYYMMDDHHmm
@@ -32,6 +33,7 @@ pub async fn fetch_info(
             title: arxiv.title,
             url: arxiv.pdf_url,
             summary: arxiv.summary.replace("\n", " "),
+            published: arxiv.published.parse()?,
         })
     }
     Ok(arxivs)

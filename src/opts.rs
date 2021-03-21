@@ -9,8 +9,11 @@ pub struct Opts {
     pub source_lang: String,
     #[clap(short, long, default_value = "ja")]
     pub target_lang: String,
-    #[clap(long, default_value = "0")]
-    pub range_days: i64,
-    #[clap(long, default_value = "1")]
-    pub range_hours: i64,
+    #[clap(
+        short,
+        long,
+        default_value = "15",
+        about = "Interval to check the latest papers. (Unit: minute)"
+    )]
+    pub update_frequency: u64,
 }

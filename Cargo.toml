@@ -1,6 +1,6 @@
 [package]
 name = "trans-arxiv-bot"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["moisutsu <moisutsu@gmail.com>"]
 edition = "2018"
 description = "A Twitter bot that tweets translated arXiv paper summaries"

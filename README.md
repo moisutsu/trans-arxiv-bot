@@ -21,7 +21,7 @@ cargo install trans-arxiv-bot
 
 ## Usage
 
-By default, it fetches the papers published in the last hour from arXiv, translates them from English to Japanese, and tweets them. The default category is `cs.CL`.
+When activated, it will automatically fetch papers at regular intervals. And when the latest paper is posted, it will translate the summary and tweet it.
 
 ```sh
 trans-arxiv-bot
@@ -29,9 +29,10 @@ trans-arxiv-bot
 
 Several options can be specified in the command line arguments, as follows.
 
-- category (`--category`)
-- source language (`--source-lang`) and target language (`--target-lang`)
-- How many days or hours of the most recent paper to fetch. days (`--range-days`), hours (`--range-hours`)
+- Category `--category` [default: `cs.CL`]
+- Source language for translation `--source-lang` [default: `en`]
+- Target language for translation `--target-lang` [default: `ja`]
+- How many minutes to update `--update-frequency` [default: `15`]
 
 You can also check this from `trans-arxiv-bot --help`.
 

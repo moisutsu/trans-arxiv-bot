@@ -13,7 +13,7 @@ pub struct Opts {
         short,
         long,
         default_value = "15",
-        about = "Interval to check the latest papers. (Unit: minute)"
+        about = "Interval to check the latest papers and tweet translated summary. (Unit: minute)"
     )]
     pub update_frequency: u64,
 }

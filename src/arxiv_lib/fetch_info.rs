@@ -31,7 +31,7 @@ pub async fn fetch_info(
     for arxiv in fetch_arxivs(query).await? {
         arxivs.push(ArxivInfo {
             title: arxiv.title,
-            url: arxiv.pdf_url,
+            url: arxiv.id,
             summary: arxiv.summary.replace("\n", " "),
             published: arxiv.published.parse()?,
         })

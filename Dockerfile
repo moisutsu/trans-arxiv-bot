@@ -1,5 +1,5 @@
 FROM ekidd/rust-musl-builder:stable AS builder
-RUN cargo install --target x86_64-unknown-linux-musl --version 0.1.2 trans-arxiv-bot
+RUN cargo install --target x86_64-unknown-linux-musl --version 0.1.3 trans-arxiv-bot
 
 FROM alpine:3.13
 COPY --from=builder /home/rust/.cargo/bin/trans-arxiv-bot .

@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to trans-arxiv-bot 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.2-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.3-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/moisutsu/trans-arxiv-bot/blob/main/LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
@@ -21,7 +21,7 @@ cargo install trans-arxiv-bot
 
 ## Usage
 
-When activated, it will automatically fetch papers at regular intervals. And when the latest paper is posted, it will translate the summary and tweet it.
+When activated, it will automatically fetch papers at regular intervals. And when the latest paper is posted, it will translate the summary and tweet it. To avoid continuous tweets, tweets will be sent at regular intervals.
 
 ```sh
 trans-arxiv-bot
@@ -32,7 +32,7 @@ Several options can be specified in the command line arguments, as follows.
 - Category `--category` [default: `cs.CL`]
 - Source language for translation `--source-lang` [default: `en`]
 - Target language for translation `--target-lang` [default: `ja`]
-- How many minutes to update `--update-frequency` [default: `15`]
+- How many minutes to update and tweet `--update-frequency` [default: `15`]
 
 You can also check this from `trans-arxiv-bot --help`.
 

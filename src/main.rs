@@ -1,14 +1,17 @@
-use std::{thread, time};
+use std::{collections::VecDeque, thread, time};
 
 use anyhow::Result;
+use async_trait::async_trait;
 use chrono::{Duration, Utc};
 use clap::Clap;
-use trans_arxiv_bot::{arxiv_lib, translate, Opts, TwitterClient};
+
+use trans_arxiv_bot::{arxiv_lib, arxiv_lib::ArxivInfo, translate, Opts, TwitterClient};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let opts: Opts = Opts::parse();
     let twitter_client = TwitterClient::new().await?;
+    let mut tweet_queue = VecDeque::new();
 
     // Add a second to avoid duplicate fetching of the latest paper.
     let mut date_from =
@@ -19,29 +22,57 @@ async fn main() -> Result<()> {
         thread::sleep(time::Duration::from_secs(opts.update_frequency * 60));
 
         let date_to = Utc::now();
-        let arxivs = match arxiv_lib::fetch_info(&opts.category, &date_from, &date_to).await {
-            Ok(arxivs) => arxivs,
-            Err(err) => {
-                eprintln!("{}", err);
-                continue;
-            }
-        };
 
-        for arxiv in arxivs {
+        for arxiv in arxiv_lib::fetch_info(&opts.category, &date_from, &date_to)
+            .await
+            .unwrap_or_default()
+        {
             date_from = arxiv.published + Duration::seconds(1);
-            let translated_summary =
-                match translate(&arxiv.summary, &opts.source_lang, &opts.target_lang).await {
-                    Ok(translated_summary) => translated_summary,
-                    Err(err) => {
-                        eprintln!("{}", err);
-                        continue;
-                    }
-                };
-
-            let tweet_contents = format!("{} {}\n{}", arxiv.title, arxiv.url, translated_summary);
-            if let Err(err) = twitter_client.tweet_long_text(&tweet_contents).await {
-                eprintln!("{}", err);
-            }
+            tweet_queue.push_front(arxiv);
         }
+
+        if let Some(arxiv) = tweet_queue.pop_back() {
+            twitter_client
+                .tweet_translated_arxiv(&arxiv, &opts.source_lang, &opts.target_lang)
+                .await
+                .unwrap_or_else(|err| eprintln!("{}", err));
+        }
+
+        // To avoid continuous tweeting, use a queue to delay tweeting.
+        // To emphasize real-time performance, tweets above a certain number will not be saved in the queue.
+        // Specifically, store only as much as you can tweet in a day.
+        // Formula: tweet storage <= a day (minute) / tweet interval (minute)
+        while tweet_queue.len() as u64 > 24 * 60 / opts.update_frequency {
+            let arxiv = tweet_queue.pop_back().unwrap();
+            twitter_client
+                .tweet_translated_arxiv(&arxiv, &opts.source_lang, &opts.target_lang)
+                .await
+                .unwrap_or_else(|err| eprintln!("{}", err));
+        }
+    }
+}
+
+#[async_trait]
+trait TweetTranslatedArxiv {
+    async fn tweet_translated_arxiv(
+        &self,
+        arxiv: &ArxivInfo,
+        source_lang: &str,
+        target_lang: &str,
+    ) -> Result<()>;
+}
+
+#[async_trait]
+impl TweetTranslatedArxiv for TwitterClient {
+    async fn tweet_translated_arxiv(
+        &self,
+        arxiv: &ArxivInfo,
+        source_lang: &str,
+        target_lang: &str,
+    ) -> Result<()> {
+        let translated_summary = translate(&arxiv.summary, source_lang, target_lang).await?;
+        let tweet_contents = format!("{} {}\n{}", arxiv.title, arxiv.url, translated_summary);
+        self.tweet_long_text(&tweet_contents).await?;
+        Ok(())
     }
 }

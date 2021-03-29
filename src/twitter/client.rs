@@ -19,7 +19,7 @@ impl TwitterClient {
         let mut contents = contents.chars().collect::<Vec<_>>();
         let mut status_id: Option<String> = None;
 
-        while contents.len() != 0 {
+        while !contents.is_empty() {
             let bound = tweet_bound(&contents);
             let tweet_contents = contents.drain(..bound).collect::<String>();
             if let Some(in_reply_to_status_id) = status_id.clone() {

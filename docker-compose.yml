@@ -1,6 +1,6 @@
 version: "3"
 services:
   app:
-    image: ghcr.io/moisutsu/trans-arxiv-bot/trans-arxiv-bot:0.1.4
+    image: ghcr.io/moisutsu/trans-arxiv-bot:0.1.4
     env_file: .env
     command: ./trans-arxiv-bot

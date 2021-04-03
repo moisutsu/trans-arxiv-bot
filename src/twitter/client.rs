@@ -22,7 +22,7 @@ impl TwitterClient {
         while !contents.is_empty() {
             let bound = tweet_bound(&contents);
             let tweet_contents = contents.drain(..bound).collect::<String>();
-            if let Some(in_reply_to_status_id) = status_id.clone() {
+            if let Some(in_reply_to_status_id) = status_id {
                 let reply_id = self.reply(&tweet_contents, &in_reply_to_status_id).await?;
                 status_id = Some(reply_id);
             } else {

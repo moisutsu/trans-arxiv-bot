@@ -4,11 +4,14 @@ use anyhow::Result;
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
 use clap::Clap;
+use log::error;
 
 use trans_arxiv_bot::{arxiv_lib, arxiv_lib::ArxivInfo, translate, Opts, TwitterClient};
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    env_logger::init();
+
     let opts: Opts = Opts::parse();
     let twitter_client = TwitterClient::new().await?;
     let mut tweet_queue = VecDeque::new();
@@ -35,7 +38,7 @@ async fn main() -> Result<()> {
             twitter_client
                 .tweet_translated_arxiv(&arxiv, &opts.source_lang, &opts.target_lang)
                 .await
-                .unwrap_or_else(|err| eprintln!("{}", err));
+                .unwrap_or_else(|err| error!("{}", err));
         }
 
         // To avoid continuous tweeting, use a queue to delay tweeting.
@@ -47,7 +50,7 @@ async fn main() -> Result<()> {
             twitter_client
                 .tweet_translated_arxiv(&arxiv, &opts.source_lang, &opts.target_lang)
                 .await
-                .unwrap_or_else(|err| eprintln!("{}", err));
+                .unwrap_or_else(|err| error!("{}", err));
         }
     }
 }

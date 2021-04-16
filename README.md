@@ -11,7 +11,7 @@
 
 A Twitter bot that tweets translated arXiv paper summaries.
 
-It's actually working on [this Twitter account](https://twitter.com/trans_arxiv_bot).
+It's actually working on [this Twitter account](https://twitter.com/arXiv_cs_CL_ja).
 
 ## Install
 

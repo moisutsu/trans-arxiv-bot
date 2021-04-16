@@ -14,7 +14,7 @@ keywords = ["cli", "twitter", "bot"]
 
 [dependencies]
 kuon = "0.0.22"
-arxiv-rs = "0.1.3"
+arxiv-rs = "0.1.5"
 tokio = { version = "1.3.0", features = ["full"] }
 anyhow = "1.0.38"
 clap = "3.0.0-beta.2"

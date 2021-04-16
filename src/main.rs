@@ -74,7 +74,14 @@ impl TweetTranslatedArxiv for TwitterClient {
         target_lang: &str,
     ) -> Result<()> {
         let translated_summary = translate(&arxiv.summary, source_lang, target_lang).await?;
-        let tweet_contents = format!("{} {}\n{}", arxiv.title, arxiv.url, translated_summary);
+        let comment = arxiv
+            .comment
+            .clone()
+            .map_or("".to_string(), |s| format!("Comment: {}\n", s));
+        let tweet_contents = format!(
+            "{} {}\n{}{}",
+            arxiv.title, arxiv.url, comment, translated_summary
+        );
         self.tweet_long_text(&tweet_contents).await?;
         Ok(())
     }

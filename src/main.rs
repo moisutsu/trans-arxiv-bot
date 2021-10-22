@@ -3,7 +3,7 @@ use std::{collections::VecDeque, thread, time};
 use anyhow::Result;
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
-use clap::Clap;
+use clap::Parser;
 use log::error;
 
 use trans_arxiv_bot::{arxiv_lib, arxiv_lib::ArxivInfo, translate, Opts, TwitterClient};

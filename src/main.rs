@@ -3,8 +3,8 @@ use std::{collections::VecDeque, thread, time};
 use anyhow::Result;
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
-use clap::Parser;
 use log::error;
+use structopt::StructOpt;
 
 use trans_arxiv_bot::{arxiv_lib, arxiv_lib::ArxivInfo, translate, Opts, TwitterClient};
 
@@ -12,7 +12,7 @@ use trans_arxiv_bot::{arxiv_lib, arxiv_lib::ArxivInfo, translate, Opts, TwitterC
 async fn main() -> Result<()> {
     env_logger::init();
 
-    let opts: Opts = Opts::parse();
+    let opts: Opts = Opts::from_args();
     let twitter_client = TwitterClient::new().await?;
     let mut tweet_queue = VecDeque::new();
 

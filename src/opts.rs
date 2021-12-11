@@ -1,15 +1,14 @@
-use clap::{crate_authors, crate_description, crate_version, Parser};
+use structopt::StructOpt;
 
-#[derive(Parser)]
-#[clap(version = crate_version!(), author = crate_authors!(), about = crate_description!())]
+#[derive(StructOpt)]
 pub struct Opts {
-    #[clap(short, long, default_value = "cs.CL")]
+    #[structopt(short, long, default_value = "cs.CL")]
     pub category: String,
-    #[clap(short, long, default_value = "en")]
+    #[structopt(short, long, default_value = "en")]
     pub source_lang: String,
-    #[clap(short, long, default_value = "ja")]
+    #[structopt(short, long, default_value = "ja")]
     pub target_lang: String,
-    #[clap(
+    #[structopt(
         short,
         long,
         default_value = "15",
